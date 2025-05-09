@@ -26,7 +26,7 @@ FROM alibaba_stock
 ORDER BY ABS(daily_change_percent) DESC
 LIMIT 10;
 
--- 5. Monthly Performance: average closing price and total trading volume per month
+-- 5. average closing price and total trading volume per month
 SELECT 
     YEAR(date) AS year, 
     MONTH(date) AS month, 
@@ -36,7 +36,7 @@ FROM alibaba_stock
 GROUP BY YEAR(date), MONTH(date)
 ORDER BY YEAR(date), MONTH(date);
 
--- 6. Moving Average: Calculate a 7-day moving average for closing price
+-- 6.  Calculate a 7-day moving average for closing price
 SELECT 
     date, 
     close_price, 
@@ -77,11 +77,4 @@ SELECT
     close_price
 FROM alibaba_stock;
 
--- Volume Change (Day-over-Day)
-SELECT 
-    date, 
-    volume, 
-    LAG(volume) OVER (ORDER BY date) AS prev_volume,
-    ROUND(((volume - LAG(volume) OVER (ORDER BY date)) / NULLIF(LAG(volume) OVER (ORDER BY date), 0)) * 100, 2) AS volume_change_percent
-FROM alibaba_stock;
 
